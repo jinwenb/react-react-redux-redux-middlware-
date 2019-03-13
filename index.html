@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <title>Document</title>
+</head>
+<body>
+<script>
+    let add = () => {
+        return (str) => {
+            console.log(str+3);
+        };
+    };
+    let add1 = (next) => {
+        return (str) => {
+            next(str+2);
+        };
+    };
+    let add2 = (next) => {
+        return (str) => {
+            next(str+1);
+        };
+    };
+    let add3 = (next) => {
+        return (str) => {
+            next(str);
+        };
+    };
+
+    function compose(...arg) {
+        if (arg.length <= 1) return arg[0];
+        return (...args) => {
+            let result = arg.pop()(...args),middle;
+            while (middle = arg.pop()) {
+                result = middle(result);
+            }
+            return result;
+        }
+    }
+
+    let result = compose(add3, add2, add1, add);
+    let r = result();
+    r('金文彬')
+</script>
+
+</body>
+</html>
