@@ -8,7 +8,7 @@ let PromiseWare = ({dispatch, getState}) => (next) => (action) => {
     //然后在next(action)  也就到了这里然后next到最后的中间件
     //调用了真的store.dispatch方法
     if (action&&action.then && typeof action.then === 'function') {
-        action.then(dispatch)
+        action.then(next)
     } else if (action&&action.payload && action.payload.then && typeof action.payload.then === 'function') {
         action.payload.then(payload => dispatch({...action, payload}), payload => dispatch({...action, payload}))
     }

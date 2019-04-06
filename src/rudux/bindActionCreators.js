@@ -1,9 +1,9 @@
 export default  (action, dispatch) => {
-  let newAction = {}
+  let newAction = {};
     Object.keys(action).forEach(key=>{
-        newAction[key] = function () {
+        newAction[key] = ()=> {
             dispatch(action[key].apply(null,arguments))
         }
-    })
+    });
     return newAction;
 }
